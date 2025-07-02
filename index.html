@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Interactions</title>
+  <style>
+    :root {
+      --primary: #2a37ab;
+      --accent: #ff6b6b;
+      --surface: #f8fafc;
+      --text: #232946;
+      --muted: #8a8fa3;
+      --radius: 14px;
+      --shadow: 0 4px 18px rgba(42, 55, 171, 0.09);
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      padding: 28px;
+      background: linear-gradient(120deg, #e0e7ff 0%, #ffe0e7 100%);
+      color: var(--text);
+    }
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 36px;
+      letter-spacing: 2px;
+      font-size: 2.2em;
+      font-weight: 900;
+      text-shadow: 1px 2px 8px #e0e7ff;
+    }
+    .section {
+      border: none;
+      border-radius: var(--radius);
+      padding: 26px 30px;
+      margin-bottom: 36px;
+      background: var(--surface);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: var(--shadow);
+      border-left: 7px solid var(--accent);
+      transition: box-shadow 0.2s;
+    }
+    .section:hover {
+      box-shadow: 0 10px 36px rgba(42, 55, 171, 0.13);
+    }
+    label {
+      display: inline-block;
+      width: 90px;
+      margin-bottom: 6px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    input[type="text"], input[type="number"], input[type="email"] {
+      padding: 7px;
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      width: 180px;
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+    button {
+      margin-top: 10px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 9px 20px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-right: 8px;
+      box-shadow: 0 2px 8px #2a37ab22;
+    }
+    button:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+    #image-box img {
+      width: 200px;
+      height: auto;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 2px solid var(--accent);
+      box-shadow: 0 2px 8px #ff6b6b33;
+      background: #f1f5f9;
+    }
+    #formResult, #datetime {
+      margin-top: 14px;
+      font-weight: bold;
+      color: var(--accent);
+      font-size: 1.08em;
+      letter-spacing: 1px;
+      background: #e0e7ff;
+      border-radius: 8px;
+      padding: 8px 12px;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 1px 4px #2a37ab11;
+    }
+    #textSize {
+      color: var(--primary);
+      font-size: 1.1em;
+      background: #f1f5f9;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    @media (max-width: 600px) {
+      .section {
+        padding: 10px;
+        max-width: 98vw;
+      }
+      h1 {
+        font-size: 1.2em;
+      }
+      label {
+        width: 100%;
+        margin-bottom: 2px;
+      }
+      input[type="text"], input[type="number"], input[type="email"] {
+        width: 96%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript Script Tasks</h1>
+
+  <!-- 1. Form Input Display -->
+  <div class="section">
+    <h2 style="color:var(--accent);">1. Basic Information Form</h2>
+    <form id="infoForm" onsubmit="showFormData(event)">
+      <label>Name:</label>
+      <input type="text" id="name"><br>
+      <label>Age:</label>
+      <input type="number" id="age"><br>
+      <label>Email:</label>
+      <input type="email" id="email"><br>
+      <label>City:</label>
+      <input type="text" id="city"><br>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="formResult"></div>
+  </div>
+
+  <!-- 2. Change Image on Click -->
+  <div class="section">
+    <h2 style="color:var(--accent);">2. Change Image</h2>
+    <div id="image-box">
+      <img id="myImage" src="pexels-matthew-montrone-230847-1324803.jpg" alt="Image">
+    </div>
+    <button onclick="changeImage()">Change Image</button>
+  </div>
+
+  <!-- 3. Increase/Decrease Font Size -->
+  <div class="section">
+    <h2 style="color:var(--accent);">3. Increase/Decrease Font Size</h2>
+    <p id="textSize">This is a stylish sample text. Use the buttons to resize it.</p>
+    <button onclick="changeFontSize('increase')">Increase Font</button>
+    <button onclick="changeFontSize('decrease')">Decrease Font</button>
+  </div>
+
+  <!-- 4. Show Current Date & Time -->
+  <div class="section">
+    <h2 style="color:var(--accent);">4. Show Current Date & Time</h2>
+    <button onclick="showDateTime()">Show Date & Time</button>
+    <p id="datetime"></p>
+  </div>
+
+  <script>
+    // 1. Show form data
+    function showFormData(e) {
+      e.preventDefault(); // Prevent form reload
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const email = document.getElementById("email").value;
+      const city = document.getElementById("city").value;
+
+      const result = `👤 Name: <b>${name}</b> | 🎂 Age: <b>${age}</b> | ✉️ Email: <b>${email}</b> | 🏙️ City: <b>${city}</b>`;
+      document.getElementById("formResult").innerHTML = result;
+    }
+
+    // 2. Change image
+    let toggle = true;
+    function changeImage() {
+      const img = document.getElementById("myImage");
+      if (toggle) {
+        img.src = "pexels-souvenirpixels-1519088.jpg";
+      } else {
+        img.src = "pexels-thatguycraig000-1563356.jpg";
+      }
+      toggle = !toggle;
+    }
+
+    // 3. Font size control
+    function changeFontSize(action) {
+      const text = document.getElementById("textSize");
+      let size = window.getComputedStyle(text, null).getPropertyValue('font-size');
+      let currentSize = parseFloat(size);
+
+      if (action === 'increase') {
+        text.style.fontSize = (currentSize + 3) + "px";
+      } else if (action === 'decrease') {
+        text.style.fontSize = (currentSize - 3) + "px";
+      }
+    }
+
+    // 4. Show current date & time
+    function showDateTime() {
+      const now = new Date();
+      document.getElementById("datetime").innerHTML =
+        `<span style="color:var(--primary);">🕒 ${now.toLocaleString()}</span>`;
+    }
+  </script>
+
+</body>
+</html>
